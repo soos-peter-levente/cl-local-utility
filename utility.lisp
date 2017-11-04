@@ -1,4 +1,4 @@
-(in-package :util)
+(in-package :utility)
 
 ;; MACROS
 (defmacro for-indices (array bindings &rest body)
@@ -40,13 +40,13 @@
         ((atom (car l)) (cons (car l) (flatten (cdr l))))
         (t (append (flatten (car l)) (flatten (cdr l))))))
 
-(defun group (lst &optional size)
-  "One way of doing it."
-  (let* ((subsize (if size size  (length lst)))
-         (sub-end (if (<= (length lst) subsize) (length lst) subsize)))
-    (cond ((null lst) nil)
-          (t (cons (subseq lst 0 sub-end)
-                   (group (subseq lst sub-end) subsize))))))
+(defun group (list &optional (n 2))
+  (labels ((rec (list acc)
+             (let ((rest (nthcdr n list)))
+               (if rest
+                   (rec rest (cons (subseq list 0 n) acc))
+                   (nreverse (cons list acc))))))
+    (rec list nil)))
 
 (defun strip (list)
   (cond ((null (car list)) '())

@@ -1,6 +1,6 @@
 (defpackage :utility
   (:use :common-lisp)
-  (:nicknames :util :spl)
+  (:nicknames :util)
   (:export #:flatten
            #:shuffle
            #:strip
